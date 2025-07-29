@@ -83,11 +83,11 @@ Select count(*) as total_sales from retail_sales;
 
 ---How many no. of unique customers we have ----
 
-Select count(Distinct customer_id) as total_sales from retail_sales;
+Select count(Distinct customer_id) as unique_customers from retail_sales;
 
 ---How many unique categories we have in the data set----
 
-Select Distinct category as total_sales from retail_sales;
+Select count(Distinct category) as unique_cat from retail_sales;
 
 
 -----Data Analysis and business problems with answer----
