@@ -1,17 +1,17 @@
----CREATING DATABASE---
+---CREATING Table -Retail sales---
 create table Retail_sales ( 
-						transactions_id	INT PRIMARY KEY,
-						sale_date	DATE,
-						sale_time	TIME,
-						customer_id	INT,
-						gender		VARCHAR(15),
-						age		    INT,
-						category	VARCHAR(15),
-						quantity	INT,
-						price_per_unit  FLOAT,
-						cogs		FLOAT,
-						total_sale	FLOAT			
-						);
+			transactions_id	INT PRIMARY KEY,
+			sale_date	DATE,
+			sale_time	TIME,
+			customer_id	INT,
+			gender		VARCHAR(15),
+			age		    INT,
+			category	VARCHAR(15),
+			quantity	INT,
+			price_per_unit  FLOAT,
+			cogs		FLOAT,
+			total_sale	FLOAT			
+			);
 
 SELECT * FROM RETAIL_SALES limit 10;
 
@@ -29,21 +29,21 @@ Select * from Retail_sales
 where 
 	transactions_id IS  Null
 	or
-	sale_date  IS  Null
+	sale_date       IS  Null
 	or
-	sale_time IS  Null
+	sale_time       IS  Null
 	or
-	customer_id IS  Null
+	customer_id     IS  Null
 	or
-	gender	IS  Null
+	gender	        IS  Null
 	or
-	age		IS  Null
+	age	        IS  Null
 	or
-	category	IS  Null
+	category        IS  Null
 	or
-	quantity	IS  Null
+	quantity        IS  Null
 	or
-	price_per_unit IS  Null
+	price_per_unit  IS  Null
 	or
 	cogs		IS  Null
 	or
@@ -51,15 +51,15 @@ where
 
 Delete from retail_sales
 where 
-	transactions_id IS  Null
+	transactions_id  IS  Null
 	or
-	sale_date  IS  Null
+	sale_date        IS  Null
 	or
-	sale_time IS  Null
+	sale_time       IS  Null
 	or
-	customer_id IS  Null
+	customer_id     IS  Null
 	or
-	gender	IS  Null
+	gender	        IS  Null
 	or
 	age		IS  Null
 	or
@@ -67,7 +67,7 @@ where
 	or
 	quantity	IS  Null
 	or
-	price_per_unit IS  Null
+	price_per_unit  IS  Null
 	or
 	cogs		IS  Null
 	or
@@ -114,7 +114,7 @@ category = 'Clothing'
 and
 DATE_format(sale_date,'%Y-%M')='2022-11'
 and 
-quantity >=4;*/
+quantity >=4;*/----in mysql
 
 --Q.3 Write a SQL query to calculate the total sales (total_sale) for each category.
 
@@ -160,7 +160,7 @@ with cte as (
 		from
 			retail_sales
 		group by year,Month
-)
+           )
 
 select year, month,avg_sales from cte where rn =1 order by year,avg_sales desc;
 
@@ -168,10 +168,11 @@ select year, month,avg_sales from cte where rn =1 order by year,avg_sales desc;
 
 select  customer_id , sum(total_sale) as total_sales
 from 
-   retail_sales 
-group by customer_id
+       retail_sales 
+group by 
+	customer_id
 order by 
-    total_sales desc
+      total_sales desc
 limit 5;
 
 --Q.9 Write a SQL query to find the number of unique customers who purchased items from each category.
@@ -184,17 +185,19 @@ group by
 --Q.10 Write a SQL query to create each shift and number of orders (Example Morning <=12, Afternoon Between 12 & 17, Evening >17)
 
 with hourly_table as(
-	select *,
-	CASE
-	When extract(Hour from sale_time) <12 then 'Morning'
-	When extract(Hour from sale_time) between 12 and 17 then 'Afternoon'
-	else 'evening'
-	end as shift_times
-	from retail_sales
-	)
+			select *,
+			CASE
+			When extract(Hour from sale_time) <12 then 'Morning'
+			When extract(Hour from sale_time) between 12 and 17 then 'Afternoon'
+			else 'evening'
+			end as shift_times
+			from retail_sales
+	           )
 
 select shift_times, count(*) as total_orders 
 from
 	hourly_table 
 group by 
 	shift_times;
+
+------End of the Project------
